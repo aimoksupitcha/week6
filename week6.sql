@@ -5,12 +5,11 @@ create trigger update_total_credit
 after insert on register_details for each row
 
 begin
-	declare total float;
+declare total float;
     select sum(credit) into total from register_details
     join section using (section_id) 
     join course using (course_id) 
     where register_id = new.register_id;
-
     update  register set credittotal = total where register_id = new.register_id;
     end//
 delimiter ;
